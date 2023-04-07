@@ -1,26 +1,24 @@
 class Solution {
 public:
     int numEnclaves(vector<vector<int>>& grid) {
-        int ans = 0;
         int n = grid.size(), m = grid[0].size();
+        int ans = n * m;
         for (int r = 0; r < n; r++) {
             if (grid[r][0] == 1)
-                mark_grid(grid, {r, 0});
+                ans -= mark_grid(grid, {r, 0});
             if (grid[r][m - 1] == 1)
-                mark_grid(grid, {r, m - 1});
+                ans -= mark_grid(grid, {r, m - 1});
         }
         for (int c = 0; c < m; c++) {
             if (grid[0][c] == 1)
-                mark_grid(grid, {0, c});
+                ans -= mark_grid(grid, {0, c});
             if (grid[n - 1][c] == 1)
-                mark_grid(grid, {n - 1, c});
+                ans -= mark_grid(grid, {n - 1, c});
         }
         
-        for (int r = 1; r < n - 1; r++) {
-            for (int c = 1; c < m - 1; c++) {
-                if (grid[r][c] == 1) {
-                    ans += mark_grid(grid, {r, c});
-                }
+        for (int r = 0; r < n; r++) {
+            for (int c = 0; c < m; c++) {
+                if (grid[r][c] == 0) ans--;
             }
         }
         return ans;
