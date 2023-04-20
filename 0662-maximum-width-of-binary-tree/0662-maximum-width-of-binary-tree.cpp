@@ -9,34 +9,36 @@
  *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
  * };
  */
-typedef unsigned long long ull;
-
 class Solution {
 public:
     int widthOfBinaryTree(TreeNode* root) {
-        ull ans = 0;
-        deque<pair<TreeNode*, pair<ull, int>>> dq; //node, idx, level
-        dq.push_back({root, {1, 0}});
-        int plev = 0;
-        while(!dq.empty()) {
-            pair<TreeNode*, pair<long long, int>> curr = dq.front();
-            TreeNode* cNode = curr.first;
-            ull cidx = curr.second.first;
-            int clev = curr.second.second;
-            if (clev != plev) {
-                plev = clev;
-                ull bidx = dq.back().second.first;
-                if (bidx - cidx > ans)
-                    ans = bidx - cidx;
-            }
-            dq.pop_front();
-            if (cNode->left != nullptr) {
-                dq.push_back({cNode->left, {2 * cidx - 1, clev + 1}});
-            }
-            if (cNode->right != nullptr) {
-                dq.push_back({cNode->right, {2 * cidx, clev + 1}});
+        int res = 1;
+        queue<pair<TreeNode*, int>> q;
+
+        q.push({root, 0});
+        
+        while(!q.empty())
+        {
+            int cnt = q.size();
+            int start = q.front().second;
+            int end = q.back().second;
+            
+            res = max(res, end - start + 1);
+            
+            for(int i = 0; i < cnt; ++i)
+            {
+                pair<TreeNode*, int> p = q.front(); q.pop();
+                
+                int idx = p.second - start;
+                
+                if(p.first->left != nullptr) {
+                    q.push({p.first->left, (long long)2 * idx - 1});
+                }
+                if(p.first->right != nullptr) {
+                    q.push({p.first->right, (long long)2 * idx});
+                }
             }
         }
-        return (ans + 1);
+        return res;
     }
 };
