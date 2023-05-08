@@ -6,7 +6,7 @@ public:
         for (int i = 0; i < n; ++i) {
             res += (mat[i][i] + mat[i][n - i - 1]);
         }
-        if (n % 2 != 0) {
+        if (n & 1) {
             res -= mat[n / 2][n / 2];
         }
         return res;
