@@ -8,25 +8,23 @@
  *     ListNode(int x, ListNode *next) : val(x), next(next) {}
  * };
  */
-class Solution {
+ class Solution {
 public:
     ListNode* swapNodes(ListNode* head, int k) {
-        vector<int> arr;
-        ListNode* temp = head;
-        while (temp != nullptr) {
-            arr.push_back(temp->val);
-            temp = temp->next;
+        ListNode* left = head;
+        ListNode* right = head;
+        for (int i = 0; i < k-1; i++) {
+            left = left->next;
         }
-        int n = arr.size();
-        int tmp = arr[k - 1];
-        arr[k - 1] = arr[n - k];
-        arr[n - k] = tmp;
-        ListNode* res = new ListNode(arr[0]);
-        temp = res;
-        for (int i = 1; i < n; i++) {
-            temp->next = new ListNode(arr[i]);
-            temp = temp->next;
+        
+        ListNode *ptr = left;
+        while (ptr->next) {
+            right = right->next;
+            ptr = ptr->next;
         }
-        return res;
+        
+        swap(left->val, right->val);
+        
+        return head;
     }
 };
