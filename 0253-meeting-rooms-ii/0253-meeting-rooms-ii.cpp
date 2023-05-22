@@ -9,7 +9,7 @@ public:
                 pq.pop();
             }
             pq.push(intervals[i][1]);
-            res = max(res, (int)pq.size());
+            res = max(res, static_cast<int>(pq.size()));
         }
         return res;
     }
