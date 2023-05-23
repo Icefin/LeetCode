@@ -2,45 +2,26 @@ class KthLargest {
 public:
     KthLargest(int k, vector<int>& nums) {
         mk = k;
-        mstream = vector<int>(k < nums.size() ? k : nums.size());
-        sort(nums.begin(), nums.end(), greater<int>());
-        for (int i = 0; i < k && i < nums.size(); i++) {
-            mstream[i] = nums[i];
+        
+        for (int i = 0; i < nums.size(); i++) {
+            mpq.push(nums[i]);
+            
+            if (mpq.size() > mk)
+                mpq.pop();
         }
     }
     
     int add(int val) {
-        if (mstream.size() < mk) {
-            mstream.push_back(val);
-            sort(mstream.begin(), mstream.end(), greater<int>());
-            return mstream.back();
-        }
+        mpq.push(val);
         
-        if (val < mstream.back()) {
-            return mstream.back();
-        }
-        
-        int ptr = 0;
-        for (; ptr < mstream.size(); ptr++) {
-            if (val >= mstream[ptr]) {
-                break;
-            }
-        }
-        
-        int prev = mstream[ptr];
-        mstream[ptr] = val;
-        ptr++;
-        for (; ptr < mstream.size(); ptr++) {
-            int temp = mstream[ptr];
-            mstream[ptr] = prev;
-            prev = temp;
-        }
-        return mstream.back();
+        if (mpq.size() > mk)
+            mpq.pop();
+        return mpq.top();
     }
     
 private :
     int mk;
-    vector<int> mstream;
+    priority_queue<int, vector<int>, greater<int>> mpq;
 };
 
 /**
