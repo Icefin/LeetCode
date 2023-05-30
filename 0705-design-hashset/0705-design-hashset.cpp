@@ -1,51 +1,23 @@
 class MyHashSet {
 public:
     MyHashSet() {
-        
+        v = vector<bool>(1e6 + 1, false);
     }
     
     void add(int key) {
-        if (findKeyIndex(key) != -1) {
-            return;
-        }
-        vector<int>::iterator iter = lower_bound(v.begin(), v.end(), key);
-        v.insert(iter, key);
-        
+        v[key] = true;
     }
     
     void remove(int key) {
-        if (findKeyIndex(key) == -1) {
-            return;
-        }
-        vector<int>::iterator iter = lower_bound(v.begin(), v.end(), key);
-        v.erase(iter);
+        v[key] = false;
     }
     
     bool contains(int key) {
-        if (findKeyIndex(key) == -1) {
-            return false;
-        }
-        return true;
+        return v[key];
     }
     
 private :
-    vector<int> v;
-    int findKeyIndex(int key) {
-        int left = 0, right = v.size() - 1;
-        while (left <= right) {
-            int mid = left + (right - left) / 2;
-            if (v[mid] == key) {
-                return mid;
-            }
-            if (v[mid] > key) {
-                right = mid - 1;
-            }
-            else {
-                left = mid + 1;
-            }
-        }
-        return -1;
-    }
+    vector<bool> v;
 };
 
 /**
