@@ -4,13 +4,12 @@ public:
         int res = 0;
         int m = grid.size();
         int n = grid[0].size();
+        int c = n - 1;
         for (int r = 0; r < m; r++) {
-            for (int c = 0; c < n; c++) {
-                if (grid[r][c] < 0) {
-                    res += n - c;
-                    break;
-                }
+            while (c >= 0 && grid[r][c] < 0) {
+                c--;
             }
+            res += n - c - 1;
         }
         return res;
     }
