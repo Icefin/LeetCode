@@ -1,6 +1,8 @@
 class Solution {
 public:
     double champagneTower(int poured, int qi, int qj) {
+        vector<vector<double>> tower(101, vector<double>(101, 0));
+
         tower[0][0] = poured;
         for (int i = 0; i <= qi; ++i)
         {
@@ -19,7 +21,4 @@ public:
         }
         return tower[qi][qj];
     }
-    
-private :
-    double tower[101][101];
 };
