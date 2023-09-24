@@ -2,7 +2,7 @@ class Solution {
 public:
     double champagneTower(int poured, int qi, int qj) {
         tower[0][0] = poured;
-        for (int i = 0; i <= 100; ++i)
+        for (int i = 0; i <= qi; ++i)
         {
             for (int j = 0; j <= i; ++j)
             {
