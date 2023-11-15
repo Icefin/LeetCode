@@ -1,22 +1,12 @@
 class Solution {
 public:
     int trailingZeroes(int n) {
-        int two_cnt = 0, five_cnt = 0;
-        
-        for (int i = 2; i <= n; ++i) {
-            int num = i;
-            while (num % 2 == 0 || num % 5 == 0) {
-                if (num % 2 == 0) {
-                    two_cnt++;
-                    num /= 2;
-                }
-                if (num % 5 == 0) {
-                    five_cnt++;
-                    num /= 5;
-                }   
-            }
+       int five_cnt = 0;
+       
+        while(n / 5 > 0) {
+            five_cnt += n / 5;
+            n /= 5;
         }
-        
-        return min(two_cnt, five_cnt);
+        return five_cnt;
     }
 };
