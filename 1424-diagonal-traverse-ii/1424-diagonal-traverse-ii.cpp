@@ -1,26 +1,21 @@
-bool compare(vector<int>& v1, vector<int>& v2) {
-    if (v1[0] != v2[0])
-        return v1[0] < v2[0];
-    return v1[1] > v2[1];
-}
-
 class Solution {
 public:
     vector<int> findDiagonalOrder(vector<vector<int>>& nums) {
-        vector<vector<int>> pq;
-        int n = nums.size();
-        for (int r = 0; r < n; ++r) {
-            int m = nums[r].size();
-            for (int c = 0; c < m; ++c) {
-                pq.push_back({r + c, r, nums[r][c]});
-            }
-        }
+        vector<int> res;
+        queue<pair<int, int>> q;
+        q.push({0, 0});
         
-        sort(pq.begin(), pq.end(), compare);
-        n = pq.size();
-        vector<int> res(n);
-        for (int i = 0 ; i < n; ++i) {
-            res[i] = pq[i][2];
+        while (q.empty() == false) {
+            int cr = q.front().first;
+            int cc = q.front().second;
+            q.pop();
+            
+            res.push_back(nums[cr][cc]);
+            
+            if (cc == 0 && cr + 1 < nums.size())
+                q.push({cr + 1, cc});
+            if (cc + 1 < nums[cr].size())
+                q.push({cr, cc + 1});
         }
         return res;
     }
