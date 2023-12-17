@@ -28,9 +28,9 @@ public:
     }
     
 private :
-    map<string, int> m_food_rating;
-    map<string, string> m_food_cuisine;
-    map<string, set<pair<int, string>>> m_cuisine_order;
+    unordered_map<string, int> m_food_rating;
+    unordered_map<string, string> m_food_cuisine;
+    unordered_map<string, set<pair<int, string>>> m_cuisine_order;
 };
 
 /**
