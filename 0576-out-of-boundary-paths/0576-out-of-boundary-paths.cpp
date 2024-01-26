@@ -2,8 +2,7 @@ class Solution {
 public:
     int findPaths(int m, int n, int maxMove, int startRow, int startColumn) {
         vector<vector<vector<int>>> dp(m, vector<vector<int>>(n, vector<int>(maxMove + 1, -1)));
-        int res = dfs(startRow, startColumn, 0, m, n, maxMove, dp);
-        return res;
+        return dfs(startRow, startColumn, 0, m, n, maxMove, dp);
     }
     
 private :
