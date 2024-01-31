@@ -10,9 +10,6 @@ public:
             }
             st.push({temperatures[i], i});
         }
-        while (st.empty() == false) {
-            res[st.top().second] = 0; st.pop();
-        }
         return res;
     }
 };
