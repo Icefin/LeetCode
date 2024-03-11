@@ -1,15 +1,23 @@
 class Solution {
 public:
     string customSortString(string order, string s) {
-        uint8_t priority[26];
-        memset(priority, -1, sizeof(priority));
-        for (int i = 0; i < order.length(); ++i) {
-            priority[order[i] - 'a'] = i + 1;
+        int frequency[26];
+        memset(frequency, 0, sizeof(frequency));
+        for (int i = 0; i < s.length(); ++i) {
+            frequency[s[i] - 'a']++;
         }
         
-        sort(s.begin(), s.end(), [&](char c1, char c2) {
-            return priority[c1 - 'a'] < priority[c2 - 'a'];
-        });
-        return s;
+        string res = "";
+        for (int i = 0; i < order.length(); ++i) {
+            res.append(frequency[order[i] - 'a'], order[i]);
+            frequency[order[i] - 'a'] = 0;
+        }
+        
+        for (int i = 0; i < 26; ++i) {
+            if (frequency[i] != 0) {
+                res.append(frequency[i], 'a' + i);
+            }
+        }
+        return res;
     }
 };
